@@ -14,6 +14,6 @@ app.use("/user", userRouter)
 
 
 // Connect to MongoDB
-mongoose.connect('paste your mongo db server link', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "leetcode" });
+mongoose.connect('mongodb+srv://harishkevin:Harhyd987.@cluster0.wmgrbwr.mongodb.net/leetcode', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "leetcode" });
 
 app.listen(3000, () => console.log('Server running on port 3000'));
