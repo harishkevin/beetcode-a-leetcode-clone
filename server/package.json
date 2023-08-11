@@ -8,6 +8,7 @@
     "vm2": "^3.9.19"
   },
   "scripts": {
+    "dev": "node index.js",
     "build": "npm i"
   }
 }
