@@ -3,6 +3,7 @@ const { authenticateJwt, SECRET } = require("../middleware/auth");
 const { User, Problem, Admin } = require("../db");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const {runUserScript} = require('./executeCode')
 
   router.post('/signup', async (req, res) => {
     const { username, password } = req.body;
@@ -18,7 +19,7 @@ const jwt = require('jsonwebtoken');
   });
   
   router.post('/login', async (req, res) => {
-    const { username, password } = req.headers;
+    const { username, password } = req.body;
     const user = await User.findOne({ username, password });
     if (user) {
       const token = jwt.sign({ username, role: 'user' }, SECRET, { expiresIn: '1h' });
@@ -64,5 +65,16 @@ const jwt = require('jsonwebtoken');
       res.status(403).json({ message: 'User not found' });
     }
   });
+
+  router.post('/execute', authenticateJwt, async (req, res) => {
+    try{
+      const code = req.body.code;
+      const result = await runUserScript(code)
+      res.json({output: result})
+  } catch (error) {
+    res.status(400).json({error : error.message})
+  }
+  })
+
   
   module.exports = router

@@ -10,7 +10,7 @@ import Landing from './Landing.jsx'
 import { useLocation } from 'react-router-dom';
 import Signin from './Signin'
 import AddProblem from './AddProblem'
-
+import Problems from './Problems'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,6 +25,7 @@ function App() {
           <Route path='/signin' element={<> <OtherAppbar /> <Signin /> </>} />
           <Route path='/home' element={<> <OtherAppbar /> </>} />
           <Route path='/addproblem' element={<> <OtherAppbar /> <AddProblem /> </>} />
+          <Route path='/problem' element={<> <OtherAppbar /> <Problems /> </>} />
         </Routes>
       </Router>
     </>
