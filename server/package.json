@@ -9,6 +9,6 @@
   },
   "scripts": {
     "dev": "node index.js",
-    "build": "npm i"
+    "build": "npm ci"
   }
 }
