@@ -1,19 +1,13 @@
-const {VM} = require('VM2')
+const ivm = require('isolated-vm');
 
 async function runUserScript(code) {
-    return new Promise((resolve, reject) => {
-        const vm = new VM({
-            timeout : 100000,
-            sandbox : {},
-        })
+    const isolate = new ivm.Isolate();
+    const context = await isolate.createContext();
 
-        try {
-            const result = vm.run(code);
-            resolve(result)
-        } catch (error) {
-            reject(error)
-        }
-    })
+    const script = await isolate.compileScript(code);
+    const result = await script.run(context);
+
+    return result;
 }
 
-module.exports = {runUserScript}
+module.exports = { runUserScript };
