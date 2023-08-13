@@ -9,8 +9,10 @@ function SolvingScreen() {
     const [code, setCode] = useState("")
     const [output, setOutput] = useState("")
 
+    const host = window.localStorage.host
+
     useEffect(() => {
-        fetch('http://localhost:3000/user/problem/' + problemId, {
+        fetch(`http://${host}/user/problem/` + problemId, {
             method : "GET",
             headers : {
                 'Authorization' : 'Barer ' + localStorage.getItem('token')

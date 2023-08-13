@@ -6,8 +6,10 @@ function Problems() {
   const [currentPage, setCurrentPage] = useState(1);
   const problemsPerPage = 10;
 
+  const host = window.localStorage.host
+
   useEffect(() => {
-    fetch(`http://localhost:3000/user/problems?page=${currentPage}`, {
+    fetch(`http://${host}/user/problems?page=${currentPage}`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

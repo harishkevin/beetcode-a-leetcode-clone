@@ -6,6 +6,8 @@ function Signup() {
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
 
+    const host = window.localStorage.host
+
     return <div style={{
         display : 'flex',
         justifyContent : 'center',
@@ -37,7 +39,7 @@ function Signup() {
             backgroundColor : '#526a76',
             textTransform : 'capitalize'
         }} onClick={() => {
-            fetch('http://localhost:3000/user/signup',{
+            fetch(`http://${host}/user/signup`,{
                 method : "POST",
                 body : JSON.stringify({
                     username : username,
