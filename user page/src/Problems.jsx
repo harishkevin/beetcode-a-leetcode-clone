@@ -6,7 +6,8 @@ function Problems() {
   const [currentPage, setCurrentPage] = useState(1);
   const problemsPerPage = 10;
 
-  const host = window.localStorage.host
+  // const host = window.location.host
+  const host = 'localhost:3000'
 
   useEffect(() => {
     fetch(`http://${host}/user/problems?page=${currentPage}`, {
@@ -39,8 +40,8 @@ function Problems() {
     <div style={{
       backgroundColor : '#1a1a1a',
       color : 'white',
-      minHeight : '91.6vh',
-      paddingLeft : '250px',
+      minHeight : '100vh',
+      paddingLeft : '15%',
       paddingTop : '30px'
     }}>
       {renderProblems()}

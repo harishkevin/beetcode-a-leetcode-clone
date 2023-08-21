@@ -6,3 +6,9 @@ body{
 .problem:hover {
     background-color: #313131;
 }
+
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+  }

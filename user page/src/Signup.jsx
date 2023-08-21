@@ -6,17 +6,18 @@ function Signup() {
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
 
-    const host = window.localStorage.host
+    // const host = window.location.host
+    const host = 'localhost:3000'
 
     return <div style={{
         display : 'flex',
         justifyContent : 'center',
         backgroundColor : '#ecf0f1',
-        padding : 125,
-        height : '65.4vh'
+        alignItems: 'center',
+        height: '100vh'
     }}>
         <Card style={{
-            width : '20vw',
+            width : '350px',
             padding : 30,
             height : '400px',
             display : 'flex',
@@ -24,8 +25,13 @@ function Signup() {
             alignItems : 'center',
             paddingTop : 70
         }}>
+        <img style={{
+            width : 60,
+            marginBottom: -15
+        }} src="../beet_5194813 (1).png" alt="" />
         <Typography variant='h5' style={{
-            margin : 25
+            margin : 25,
+            marginTop: 0
         }}>beetcode</Typography>
         <TextField label='username' fullWidth onChange={(e)  => {
             setUsername(e.target.value)

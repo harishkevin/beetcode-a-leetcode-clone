@@ -16,8 +16,9 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div style={{
-      height : '100vh'
+    <div className='globalParent' style={{
+      width : '100%',
+      height: '100%'
           }}>
     <Router>
       <Appbar></Appbar>

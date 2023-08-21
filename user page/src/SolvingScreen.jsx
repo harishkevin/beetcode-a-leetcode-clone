@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import {Typography, Card, Select, MenuItem, FormControl, InputLabel, Button} from '@mui/material'
 
+// const host = window.location.host
+const host = 'localhost:3000'
 
 function SolvingScreen() {
     const {problemId} = useParams()
     const [problem, setProblem] = useState()
     const [code, setCode] = useState("")
     const [output, setOutput] = useState("")
-
-    const host = window.localStorage.host
 
     useEffect(() => {
         fetch(`http://${host}/user/problem/` + problemId, {
@@ -34,7 +34,7 @@ function SolvingScreen() {
         display : 'flex',
         backgroundColor : '#1a1a1a',
         color : 'white',
-        minHeight : '100%'
+        minHeight : '100vh'
         }}>
         <ProblemStatement problem={problem}></ProblemStatement>
         <CodingArea code={code} setCode={setCode} problem={problem} setOutput={setOutput} output={output}></CodingArea>
@@ -136,7 +136,7 @@ function CodingArea(props) {
         }} onClick={async () => {
             console.log(JSON.stringify({code : props.code}))
             try {
-                const response = await fetch('http://localhost:3000/user/execute', {
+                const response = await fetch(`http://${host}/user/execute`, {
                 method : "POST",
                 body : JSON.stringify({code : props.code}),
                 headers : {
