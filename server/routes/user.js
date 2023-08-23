@@ -4,6 +4,11 @@ const { User, Problem, Admin } = require("../db");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const {runUserScript} = require('./executeCode')
+const {exec, spawn} = require('child_process')
+const Docker = require('dockerode');
+
+
+const docker = new Docker();
 
   router.post('/signup', async (req, res) => {
     const { username, password } = req.body;
@@ -75,6 +80,46 @@ const {runUserScript} = require('./executeCode')
     res.status(400).json({error : error.message})
   }
   })
+
+  router.post('/execute2', async (req, res) => {
+    const userCode = req.body.code;
+  
+    // Create a Docker container
+    const container = await docker.createContainer({
+      Image: 'node:14', // Use an appropriate Node.js version
+      Cmd: ['node', '-e', userCode],
+      Tty: false, // Use false to disable TTY allocation
+    });
+  
+    // Start the container
+    await container.start();
+  
+    // Attach to the container's output
+    const logsStream = await container.logs({
+      follow: true,
+      stdout: true,
+      stderr: true,
+    });
+  
+    // Collect the container's output as a string
+    let logs = '';
+    logsStream.on('data', (chunk) => {
+      logs += chunk.toString();
+    });
+
+    console.log('log::' + logs)
+  
+    // When the stream ends, send the logs as a JSON response
+    logsStream.on('end', () => {
+      const responseJSON = { logs: logs };
+      console.log(responseJSON)
+      res.json(responseJSON);
+    });
+  
+    // Cleanup after the container finishes
+    await container.wait();
+    await container.remove();
+  });
 
   
   module.exports = router
