@@ -33,6 +33,16 @@ const docker = new Docker();
       res.status(403).json({ message: 'Invalid username or password' });
     }
   });
+
+  router.get('/me', authenticateJwt, async (req, res) => {
+    const user = await User.findOne({username : req.user.username})
+    if (!user) {
+      res.status(403).json({message : "User doesn't exist"})
+    }
+    res.json({
+      username : user.username
+    })
+  })
   
   router.get('/problems', authenticateJwt, async (req, res) => {
     const problems = await Problem.find({});

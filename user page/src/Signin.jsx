@@ -1,10 +1,15 @@
 import { useState } from "react";
 import {Button, Typography, TextField, Card} from '@mui/material'
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userState } from "./store/atoms/user";
 
 
 function Signup() {
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
+    const navigate = useNavigate()
+    const setUser = useSetRecoilState(userState)
 
     // const host = window.location.host
     const host = 'localhost:3000'
@@ -59,6 +64,13 @@ function Signup() {
                 res.json().then((data) => {
                     console.log(data)
                     localStorage.setItem('token', data.token)
+                    // window.location = '/home'
+                    setUser({
+                        userEmail: username,
+                        isLoading: false
+                    })
+                    navigate('/home')
+
                 })
             })
         }}>Sign In</Button>

@@ -58,6 +58,11 @@ function Signup() {
                 res.json().then((data) => {
                     console.log(data)
                     localStorage.setItem('token', data.token)
+                    setUser({
+                        userEmail: username,
+                        isLoading: false
+                    })
+                    navigate('/home')
                 })
             })
         }}>Sign up</Button>
